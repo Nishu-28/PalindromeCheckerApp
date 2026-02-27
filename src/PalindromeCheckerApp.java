@@ -9,31 +9,31 @@
  */
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        // Declare and initialize input
-        String input = "radar";
+        // Declare and initialize input string
+        String input = "noon";
 
-        // Convert string to character array
-        char[] chars = input.toCharArray();
+        // Create a stack to store characters
+        Stack<Character> stack = new Stack<>();
 
-        // Initialize pointers
-        int start = 0;
-        int end = chars.length - 1;
+        // Push each character into the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
-        // Assume it's a palindrome
+        // Assume palindrome initially
         boolean isPalindrome = true;
 
-        // Compare characters using two-pointer technique
-        while (start < end) {
-            if (chars[start] != chars[end]) {
+        // Compare by popping from stack
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         // Display result
