@@ -13,23 +13,31 @@ import java.util.Scanner;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Declare and initialize input
+        String input = "radar";
 
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        // Convert string to character array
+        char[] chars = input.toCharArray();
 
-        String reversed = "";
+        // Initialize pointers
+        int start = 0;
+        int end = chars.length - 1;
 
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        // Assume it's a palindrome
+        boolean isPalindrome = true;
+
+        // Compare characters using two-pointer technique
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        if (input.equals(reversed)) {
-            System.out.println("The string is a Palindrome.");
-        } else {
-            System.out.println("The string is NOT a Palindrome.");
-        }
-
-        scanner.close();
+        // Display result
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
