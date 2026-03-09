@@ -1,9 +1,15 @@
 import java.util.*;
 
-import java.util.*;
-
 interface PalindromeStrategy {
     boolean checkPalindrome(String input);
+}
+
+class ReverseStringStrategy implements PalindromeStrategy {
+    public boolean checkPalindrome(String input) {
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        String reversed = new StringBuilder(normalized).reverse().toString();
+        return normalized.equals(reversed);
+    }
 }
 
 class StackStrategy implements PalindromeStrategy {
@@ -42,25 +48,37 @@ class DequeStrategy implements PalindromeStrategy {
     }
 }
 
-
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        PalindromeStrategy strategy;
+        PalindromeStrategy reverseStrategy = new ReverseStringStrategy();
+        PalindromeStrategy stackStrategy = new StackStrategy();
+        PalindromeStrategy dequeStrategy = new DequeStrategy();
 
-        int choice = 1;
+        long start1 = System.nanoTime();
+        boolean result1 = reverseStrategy.checkPalindrome(input);
+        long end1 = System.nanoTime();
 
-        if (choice == 1) {
-            strategy = new StackStrategy();
-        } else {
-            strategy = new DequeStrategy();
-        }
+        long start2 = System.nanoTime();
+        boolean result2 = stackStrategy.checkPalindrome(input);
+        long end2 = System.nanoTime();
 
-        boolean result = strategy.checkPalindrome(input);
+        long start3 = System.nanoTime();
+        boolean result3 = dequeStrategy.checkPalindrome(input);
+        long end3 = System.nanoTime();
 
         System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + result);
+
+        System.out.println("Reverse Strategy Result : " + result1);
+        System.out.println("Execution Time (ns) : " + (end1 - start1));
+
+        System.out.println("Stack Strategy Result : " + result2);
+        System.out.println("Execution Time (ns) : " + (end2 - start2));
+
+        System.out.println("Deque Strategy Result : " + result3);
+        System.out.println("Execution Time (ns) : " + (end3 - start3));
     }
 }
